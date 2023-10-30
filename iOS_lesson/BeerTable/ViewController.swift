@@ -45,25 +45,7 @@ final class ViewController: UIViewController, UITableViewDataSource {
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        let url: URL = URL(string: "https://api.punkapi.com/v2/beers")!
-        URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-            guard
-                let data,
-                let response,
-                error == nil
-            else {
-                    return
-            }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            self.beerData = try! decoder.decode([BeerDTO].self, from: data)
-            DispatchQueue.main.async(execute: {
-                self.tableView.reloadData()
-            })
-            
-            
-        }).resume()
+    
         
     }
 
@@ -72,9 +54,4 @@ final class ViewController: UIViewController, UITableViewDataSource {
 
 
 
-struct BeerDTO: Decodable {
-    let id: Int
-    let name: String
-    let tagline: String
-    let imageUrl: URL
-}
+
