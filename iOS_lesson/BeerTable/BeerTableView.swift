@@ -8,11 +8,11 @@
 import UIKit
 
 final class BeerTableView: UIView {
-    
+    private lazy var tableManager = BeerTableManager()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
- //       tableView.dataSource = self
+     tableView.dataSource = tableManager
         return tableView
     }()
     
@@ -25,6 +25,11 @@ final class BeerTableView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with viewModel: [BeerDTO]) {
+        tableManager.tableData = viewModel
+        tableView.reloadData()
     }
     
 }

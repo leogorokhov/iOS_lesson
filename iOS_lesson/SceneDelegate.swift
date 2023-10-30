@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return } // создаем сцену
       
         let window = UIWindow(windowScene: windowScene) // создаем окно
-        let viewController = ViewController() // создаем контроллер
+        let viewController = BeerTableViewController() // создаем контроллер
         window.rootViewController = viewController // делаем его главным
         window.makeKeyAndVisible() // делаем его ключевым и видимым
         self.window = window // говорим, что это тот самый window вне функции
