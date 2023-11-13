@@ -7,21 +7,29 @@
 
 import UIKit
 
+protocol BeerTableViewDelegate {
+    func didSelectRow(_ beerModel: BeerDTO)
+}
+
 final class BeerTableView: UIView {
     private lazy var tableManager = BeerTableManager()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-     tableView.dataSource = tableManager
+        tableView.dataSource = tableManager
+        tableView.delegate = tableManager
         return tableView
     }()
     
-        init() {
-            super.init(frame: .zero)
-            self.backgroundColor = .white
-            addSubViews()
-            makeConstraints()
-        }
+    var delegate: BeerTableViewDelegate?
+    
+    init() {
+        super.init(frame: .zero)
+        self.backgroundColor = .white
+        addSubViews()
+        makeConstraints()
+        tableManager.delegate = self
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,6 +41,16 @@ final class BeerTableView: UIView {
     }
     
 }
+
+// MARK: - BeerTableManagerDelegate
+
+extension BeerTableView: BeerTableManagerDelegate {
+    func didSelectRow(_ beerModel: BeerDTO) {
+        delegate?.didSelectRow(beerModel)
+    }
+}
+
+// MARK: - Private
 
 private extension BeerTableView {
     func addSubViews() {
